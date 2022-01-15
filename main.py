@@ -1,10 +1,11 @@
-import os, sys
+#!/usr/bin/env python3
+import os,sys
 from PIL import Image
 
-path = os.getcwd()
-#gets current working directory
+path  = os.getcwd()
+
 path_in = path + '/images/'
-path_out = '/opt/icons/'
+path_out =  '/opt/icons/'
 #one level higher, not on the same level
 
 if not os.path.exists(path_out):
@@ -12,13 +13,9 @@ if not os.path.exists(path_out):
 #if new folder doesn't exist, create it
 
 
-def modify_images(save_path):
-    for infile in path_in:
-        if not infile.startswith('.'):
-            with Image.open(infile) as im:
-                print(infile, im.format, f"{im.size}x{im.mode}")
-                im.rotate(270).convert('RGB').resize((128, 128)).save(path_out,".jpg")
-            im.close()
+for infile in os.listdir(path_in):
+    if not infile.startswith('.'):
+        im = Image.open(path_in+infile)
+        im.rotate(270).convert('RGB').resize((128, 128)).save(path_out + infile, 'jpeg')
+        im.close()
 
-if __name__ == '__main__':
-    modify_images(path_in)
