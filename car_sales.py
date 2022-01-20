@@ -2,9 +2,10 @@
 
 import json
 import locale
+import os
 import sys
 from reportlab.platypus import Paragraph, Spacer, Table, Image
-
+import emails
 import reports
 
 
@@ -74,3 +75,9 @@ if __name__ == "__main__":
     paragraph = "<br/>".join(summary)
     print(summary)
     reports.generate("cars.pdf", "Car report", paragraph, cars_dict_to_table(data))
+    sender = "automation@example.com"
+    receiver = "{}@example.com".format(os.environ.get('USER'))
+    subject = "Sales summary for last month"
+    body = "<\n>".join(summary)
+    message = emails.generate(sender, receiver, subject, body, "/tmp/cars.pdf")
+    emails.send(message)
