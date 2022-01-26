@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys
+import os
 from PIL import Image
 
 path = os.getcwd()
