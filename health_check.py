@@ -3,7 +3,6 @@ import os
 import shutil
 import psutil
 import socket
-from network import *
 import emails
 
 
@@ -34,13 +33,15 @@ def check_localhost():
     localhost = socket.gethostbyname('localhost')
     return localhost == "127.0.0.1"
 
+
 def create_warning_email(error):
     sender = 'automation@example.com'
     recipient = os.environ["USER"]
     subject = error
     body = "Please check your system and resolve the issue as soon as possible."
-    err_msg = emails.generate(sender,recipient,subject,body)
+    err_msg = emails.generate(sender, recipient, subject, body)
     emails.send(err_msg)
+
 
 # If there's not enough disk, or not enough CPU, print an error and send a scary email
 if not check_disk_usage('/'):
@@ -55,6 +56,3 @@ if not check_localhost():
 if not check_memory_usage():
     subject = "Error - Available memory is less than 500MB"
     create_warning_email(subject)
-
-
-
