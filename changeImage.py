@@ -2,11 +2,13 @@
 import os
 from PIL import Image
 
-path = os.getcwd()
-path_in = path + '/supplier-data/images/'
+path = 'supplier-data/images/'
+pictures = os.listdir(path)
 
-for infile in os.listdir(path_in):
+for infile in pictures:
     if not infile.startswith('.') and 'tiff' in infile:
-        im = Image.open(path_in + infile)
-        im.convert('RGB').resize((600, 400)).save(path_in + infile, 'jpeg')
+        stripped_filename = os.path.splitext(infile)[0]
+        im_out = path + stripped_filename + ".jpeg"
+        im = Image.open(path + infile)
+        im.convert('RGB').resize((600, 400)).save(im_out, 'jpeg')
         im.close()
