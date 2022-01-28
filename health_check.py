@@ -36,7 +36,7 @@ def check_localhost():
 
 def create_warning_email(error):
     sender = 'automation@example.com'
-    recipient = os.environ["USER"]
+    recipient = "{}@example.com".format(os.environ["USER"])
     subject = error
     body = "Please check your system and resolve the issue as soon as possible."
     err_msg = emails.generate(sender, recipient, subject, body)
@@ -56,3 +56,8 @@ if not check_localhost():
 if not check_memory_usage():
     subject = "Error - Available memory is less than 500MB"
     create_warning_email(subject)
+
+'''
+crontab -e 
+add complete path to this script to set a cron job
+'''
